@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
         #ForeignKey (Faculty)
 class Faculty(models.Model):
-    faculty_name = models.CharField(max_length=40)
+    name = models.CharField(max_length=40)
 
 
     def __str__(self):
@@ -19,7 +19,7 @@ class Faculty(models.Model):
         #ForeignKey (Department)
 class Department(models.Model):
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
-    department_name = models.CharField(max_length=400)
+    name = models.CharField(max_length=400)
     
 
 
@@ -30,10 +30,8 @@ class Department(models.Model):
 
         #ForeingKey (School)
 class School(models.Model):
-    school_name = models.CharField(max_length=400)
-    address = models.CharField(max_length=400)
-    postal_code = models.IntegerField()
-
+    name = models.CharField(max_length=400)
+    
 
     def __str__(self):
         return self.school_name
@@ -42,7 +40,7 @@ class School(models.Model):
 
         #ForeignKey (Grade)
 class Grade(models.Model):
-    grade_type = models.CharField(max_length=40)
+    type = models.CharField(max_length=40)
 
 
     def __str__(self):
@@ -52,11 +50,11 @@ class Grade(models.Model):
 
         #ForeignKey (Certificate Type)
 class Certificate_type(models.Model):
-    certificate_type_name = models.CharField(max_length=200)
+    name = models.CharField(max_length=50)
 
 
     def __str__(self):
-        return self.certificate_type_name
+        return self.name
 
 
 
@@ -65,7 +63,7 @@ class Student(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE)
     grade = models.ForeignKey(Grade, on_delete=models.CASCADE)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
-    certificate_type = models.ForeignKey(Certificate_type, on_delete=models.CASCADE)
+    certificate_type = models.ForeignKey(Certificate_type, on_delete=models.CASCADE, null = True) 
     full_name = models.CharField(max_length=50)
     year_of_graduation = models.IntegerField()
     
